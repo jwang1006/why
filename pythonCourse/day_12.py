@@ -21,14 +21,15 @@ def play_a_game():
     print("I'm thinking of a number between 1 and 100.")
     targetNum = random.randint(1, 100)
     
-    while guesses>0
+    while guesses>0:
         guesses-=1
         if play_a_round(targetNum):
             print(f"You got it in {10-guesses}!")
-            break
+            exit()
         print(f"You have {guesses} attempts left")
+    print(f"The number was {targetNum}")
 
-def play_a_round():
+def play_a_round(targetNum):
     guessedNum = int(input("Make a guess: "))
     if guessedNum>targetNum:
         print("Too high")
