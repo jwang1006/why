@@ -10,7 +10,7 @@ import time, random
 # Include two different difficulty levels (e.g., 10 guesses in easy mode, only 5 guesses in hard mode).
 
 def play_a_game():
-    from day_12_art.py import logo
+    from day_12_art import logo
     print(logo)
     print("Welcome to the Number Guessing Game!")
     mode = input("Choose a difficulty: 'easy' or 'hard'")
@@ -39,3 +39,4 @@ def play_a_round(targetNum):
         print("You got it!")
         return True
 
+play_a_game()
