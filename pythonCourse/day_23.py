@@ -78,6 +78,7 @@ class Level():
         turtle.tracer(1)
         turtle.write("GAME OVER!", align="center", font=("Courier", 24, "normal"))
         time.sleep(5)
+        exit()
            
 
     def nextLevel(self):
@@ -104,10 +105,16 @@ screen.tracer(2)
 me = CrossyTurtle()
 screen.setup(600, 600)
 screen.listen()
-screen.onkeypress(me.moveForward, "Up")
 
+
+def stopListening():
+    screen.onkeypress(None, "Up")
+
+def startListening():
+    screen.onkeypress(me.moveForward, "Up")
 
 def countdown(round: int):
+    stopListening()
     if round-1>highScore:
         with open("pythonCourse/day_24_high_score.txt", mode = "w") as file:
                 file.write(f"high score: {round-1}")
@@ -124,7 +131,7 @@ def countdown(round: int):
     turtle.write(f"Round: {round}", align="left", font=("Courier", 24, "normal"))
     turtle.goto(-250, 230)
     turtle.write(f"High Score: {highScore}", align="left", font=("Courier", 24, "normal"))
-    
+    startListening()
 
 def writeAndClear(toWrite: str):
     turtle.write(toWrite, align="center", font=("Courier", 24, "normal"))
@@ -144,7 +151,7 @@ def main():
         currentLevel.runLevel()
         currentLevel.nextLevel()
         global tracerSpeed
-        tracerSpeed+=2
+        tracerSpeed+=1
         round+=1
 
 if __name__=="__main__":
