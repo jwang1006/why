@@ -78,7 +78,7 @@ class Level():
         turtle.tracer(1)
         turtle.write("GAME OVER!", align="center", font=("Courier", 24, "normal"))
         time.sleep(5)
-        exit()
+           
 
     def nextLevel(self):
         me.resetTurtle()
@@ -87,6 +87,15 @@ class Level():
         self.allCars.append(Car(4))
         self.allCars.append(Car(4))
         
+highScore = 0
+def updateHighScore():
+    with open("pythonCourse/day_24_high_score.txt", mode = "r") as file:
+        content = file.read()
+        print(content)
+        for letter in content:
+            if letter.isdigit():
+                global highScore
+                highScore = int(letter)
 
 screen = turtle.Screen()
 tracerSpeed = 2
@@ -97,7 +106,12 @@ screen.setup(600, 600)
 screen.listen()
 screen.onkeypress(me.moveForward, "Up")
 
+
 def countdown(round: int):
+    if round-1>highScore:
+        with open("pythonCourse/day_24_high_score.txt", mode = "w") as file:
+                file.write(f"high score: {round-1}")
+    updateHighScore()
     turtle.clear()
     turtle.home()
     turtle.tracer(1)
@@ -106,8 +120,11 @@ def countdown(round: int):
     writeAndClear("1")
     writeAndClear("GO!")
     turtle.tracer(tracerSpeed)
-    turtle.goto(-200, 250)
-    turtle.write(f"Round: {round}", align="center", font=("Courier", 24, "normal"))
+    turtle.goto(-250, 250)
+    turtle.write(f"Round: {round}", align="left", font=("Courier", 24, "normal"))
+    turtle.goto(-250, 230)
+    turtle.write(f"High Score: {highScore}", align="left", font=("Courier", 24, "normal"))
+    
 
 def writeAndClear(toWrite: str):
     turtle.write(toWrite, align="center", font=("Courier", 24, "normal"))
@@ -121,12 +138,14 @@ turtle.speed(0)
 def main():
     print("main")
     currentLevel = Level()
-    for round in range(1, 6):
+    round = 1
+    while True:
         countdown(round)
         currentLevel.runLevel()
         currentLevel.nextLevel()
         global tracerSpeed
         tracerSpeed+=2
+        round+=1
 
 if __name__=="__main__":
     main()
