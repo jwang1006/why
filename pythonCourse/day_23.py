@@ -20,8 +20,7 @@ class CrossyTurtle(turtle.Turtle):
         super().showturtle()
     
 class Car(turtle.Turtle):
-    def __init__(self, newSpeed):
-        self.saveSpeed = newSpeed
+    def __init__(self):
         super().__init__("classic", 1000, False)
         super().hideturtle()
         super().penup()
@@ -32,19 +31,12 @@ class Car(turtle.Turtle):
         super().goto(random.randint(-280, 320), random.randint(-260, 280))
         super().right(180)
         super().showturtle()
-        super().speed(newSpeed)
-    
-    def increaseSpeed(self):
-        self.saveSpeed +=2
-        super().speed(self.saveSpeed)
 
     def moveCar(self):
         super().forward(10)
         if super().xcor()<-280:
             super().hideturtle()
-            super().speed(0)
             super().setx(320)
-            super().speed(self.saveSpeed)
             super().showturtle()
 
     def detectCollision(self):
@@ -57,7 +49,7 @@ class Level():
     def __init__(self):
         self.allCars: list[Car] = []
         for n in range(0, 10):
-            toAdd = Car(2)
+            toAdd = Car()
             self.allCars.append(toAdd)
     
     
@@ -83,10 +75,7 @@ class Level():
 
     def nextLevel(self):
         me.resetTurtle()
-        for car in self.allCars:
-            car.increaseSpeed()
-        self.allCars.append(Car(4))
-        self.allCars.append(Car(4))
+        self.allCars.append(Car())
         
 highScore = 0
 def updateHighScore():
