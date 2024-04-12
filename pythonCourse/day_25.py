@@ -28,6 +28,7 @@ def saveData():
             writer.writerow([state])
     with open(f"pythonCourse/day_25_state_data/all_data.csv", "a") as file:
         writer = csv.writer(file)
+        writer.writerow("")
         row = [f"{datetime.datetime.now().date()}", 50 - len(states)]
         print("Appending row to all_data.csv:", row)  # Add this line for debugging
         writer.writerow(row)
