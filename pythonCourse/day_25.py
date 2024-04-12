@@ -10,9 +10,7 @@ screen.setup(750, 500)
 with open("pythonCourse/day_25_statesXY.csv") as file:
     data = csv.reader(file)
     states = {}
-    for row in data:
-        if row[0]!="state":
-            states.update({row[0]: (int(row[1]), int(row[2]))})
+    states = {{row[0]: (int(row[1]), int(row[2]))} for row in data if row[0]!="state"}
 
 def addState(state: str):
     turtle.hideturtle()
@@ -24,8 +22,7 @@ def saveData():
     with open(f"pythonCourse/day_25_state_data/{datetime.datetime.now().date()}.csv", "w") as file:
         writer = csv.writer(file)
         writer.writerow(["states missed:"])
-        for state in states:
-            writer.writerow([state])
+        writer.writerow([state] for state in states)
     with open(f"pythonCourse/day_25_state_data/all_data.csv", "a") as file:
         writer = csv.writer(file)
         writer.writerow("")
