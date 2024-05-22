@@ -4,7 +4,7 @@ FONT_NAME = "Courier"
 bg_color = "white"
 fg_color = "black"
 def generate():
-    
+    pass
 
 def addEntry():
     pass
