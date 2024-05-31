@@ -1,6 +1,6 @@
 import turtle, math, time
 
-# ------------------ CONSTANTS -------------------
+# ------------------ CONSTANTS FOR SCREEN (DO NOT CHANGE) -------------------
 width = 1000
 height = 1000
 incrementBetweenLines = 30
@@ -9,18 +9,20 @@ relationionship_pensize = 3
 normalSpeed = 10
 fastSpeed = 500
 
-# ----------------- EQUATION CONSTANTS--------
+# -------------- EQUATION CONSTANTS (MAY BE CHANGED DEPENDING ON DIFFERENT SITUATIONS) --------
 
-westDistance = 4
-distanceBetweenRoads = 2
-distanceToFountain = 0.25
-quadraticCoefficent = 1.0/4/distanceToFountain
-superTickToTick = 1000
+westDistance = 5
+distanceBetweenRoads = 10
+distanceToFountain = 0.4
 speed = 20 # units/superticks
+
+## MORE CONSTANTS FOR SCREEN DO NOT CHANGE ##
+quadraticCoefficent = 1.0/4/distanceToFountain # focus = 1/(4a)
+superTickToTick = 1000 
 speedInScreenUnitsPerTick = speed/superTickToTick*incrementBetweenLines
 ticks = 0
 superticks = ticks/superTickToTick
-
+superTickToSeconds = 300
 
 # ---------- CHANGING VARIABLES --------
 normalSlope = 0
@@ -92,7 +94,7 @@ def newtons_method_derivative_helper(x) -> float:
     return 6*(quadraticCoefficent**2)*(x**2)+ 2*quadraticCoefficent*distanceBetweenRoads
 
 
-def bruteForce():
+def binarySearch():
     # 2a^2x^3+2ahx-d
     p1 = 0
     p2 = 20
@@ -228,9 +230,7 @@ def updateInformation():
     info_drawer.goto(-width//2+200, height//2-150)
     info_drawer.write(f"Police and Client Slope: {round(policeAndClientSlope, 4)}", align="center", font=("Arial", 25, "normal"))
     info_drawer.goto(-width//2+200, height//2-180)
-    info_drawer.write(f"Superticks: {round(superticks, 4)}", align="center", font=("Arial", 25, "normal"))
-    info_drawer.goto(-width//2+200, height//2-180)
-    info_drawer.write(f"Superticks: {round(superticks, 4)}", align="center", font=("Arial", 25, "normal"))
+    info_drawer.write(f"Seconds: {round(superticks*superTickToSeconds, 4)}", align="center", font=("Arial", 25, "normal"))
     info_drawer.goto(-width//2+200, height//2-210)
     info_drawer.write(f"Newton distance: {round(newtonsExpectedDistance, 3)}", align="center", font=("Arial", 25, "normal"))
     info_drawer.goto(-width//2+200, height//2-240)
@@ -263,8 +263,6 @@ def runSimulation():
 if __name__ == "__main__":
     setup()
     newtonsExpectedDistance = newtons_method(20)
-    print(newtonsExpectedDistance)
-    binaryExpectedDistance = bruteForce()
-
+    binaryExpectedDistance = binarySearch()
     runSimulation()
     screen.exitonclick()
