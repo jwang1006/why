@@ -1,0 +1,34 @@
+class Solution:
+    def longestPalindrome(self, sample: str) -> str:
+        odd = self.oddPalindrome(sample)
+        even = self.evenPalindrome(sample)
+        if len(odd)>len(even):
+            return odd
+        return even
+    
+    def oddPalindrome(self, sample: str) -> str:
+        validIndexes = [n for n in range(len(sample))]
+        searchAt = 1
+        best = ""
+        while len(validIndexes)>0:
+            for n in validIndexes:
+                if n-searchAt<0 or n+searchAt>=len(sample) or sample[n-searchAt]!=sample[n+searchAt]:
+                    validIndexes.remove(n)
+                else:
+                    best = sample[n-searchAt: n+searchAt+1]
+        return best
+
+    def evenPalindrome(self, sample: str) -> str:
+        validIndexes = [n for n in range(len(sample))]
+        searchAt = 0
+        best = ""
+        while len(validIndexes)>0:
+            for n in validIndexes:
+                if n-searchAt<0 or n+1+searchAt>=len(sample) or sample[n-searchAt]!=sample[n+1+searchAt]:
+                    validIndexes.remove(n)
+                else:
+                    best = sample[n-searchAt: n+1+searchAt+1]
+        return best
+    
+bob = Solution()
+bob.longestPalindrome("abbbd")
